@@ -1,13 +1,8 @@
 
-import { validate } from 'uuid';
 import Movie from '../models/Movie.js'; // Import the Movie model
 
 import * as yup from 'yup';
 
-const notFutureYear = (value) => {
-    const currentYear = new Date().getFullYear();
-    return value <= currentYear;
-};
 
 const createMovieSchema = yup.object().shape({
     title: yup.string().required(),
@@ -63,7 +58,7 @@ const getAllMovies = async (req, res) => {
     try {
         const { page = 1 } = req?.query;
         const validatedPage = await getAllMoviesSchema.validate({ page });
-        const limit = 20;
+        const limit = 10;
         let offset = 0;
         offset = limit * (validatedPage.page - 1);
 
