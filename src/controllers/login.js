@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken';
 
 const signJwt = (user) => {
-    const token = jwt.sign({ userId: user.id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ userId: user.id, email: user.email }, "8ff954ec9147ae4a6a84a6f591f4cb52f7b4aa46459cbb9c944b24b0e1f13d01", { expiresIn: '1h' });
     return token;
 }
 

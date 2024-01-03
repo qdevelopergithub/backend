@@ -9,7 +9,7 @@ export const verifyToken = async (req, res, next) => {
     }
 
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const decoded = jwt.verify(token, "8ff954ec9147ae4a6a84a6f591f4cb52f7b4aa46459cbb9c944b24b0e1f13d01");
 
         const user = await User.findByPk(decoded.userId);
         if (!user) {
