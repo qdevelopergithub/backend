@@ -14,7 +14,7 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.get('/',(req,res)=>{
+app.get('/', (req, res) => {
     res.send('api is working')
 })
 app.post('/login', loginController)
@@ -24,7 +24,7 @@ app.get('/movies', verifyToken, getAllMovies)
 app.put('/movie/:movieId', verifyToken, updateMovie)
 export async function syncDatabase() {
     try {
-        await sequelize.sync({ alter: true, force: true });
+        await sequelize.sync({ alter: true, force: false });
         console.log('Database synchronized!');
     } catch (error) {
         console.error('Error synchronizing database:', error);
