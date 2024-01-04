@@ -41,6 +41,7 @@ const createMovie = async (req, res) => {
             title,
             publishingYear,
             poster,
+            userId: req?.user?.id || ""
         });
 
         res.status(201).json(newMovie);
@@ -66,9 +67,15 @@ const getAllMovies = async (req, res) => {
         const limit = 20;
         let offset = 0;
         offset = limit * (validatedPage.page - 1);
-
-        const count = await Movie.count();
+        const count = await Movie.count({
+            where: {
+                userId: req?.user?.id
+            }
+        });
         const movies = await Movie.findAll({
+            where: {
+                userId: req?.user?.id
+            },
             limit,
             offset,
             order: [['createdAt', 'DESC']]
@@ -91,9 +98,9 @@ const getAllMovies = async (req, res) => {
 
 
 const updateMovieSchema = yup.object().shape({
-    title: yup.string().required(),
-    publishingYear: yup.number().integer().max(new Date().getFullYear(), 'Publishing year cannot be in the future').required(),
-    poster: yup.string().required(),
+    title: yup.string(),
+    publishingYear: yup.number().integer().max(new Date().getFullYear(), 'Publishing year cannot be in the future'),
+    poster: yup.string(),
     movieId: yup.string().uuid().required(),
 
 });

@@ -8,13 +8,15 @@ import loginController from './controllers/login.js';
 import { createMovie, getAllMovies, updateMovie } from './controllers/movieController.js';
 import sequelize from './config/database.js';
 import { verifyToken } from './middleware/authMiddleware.js';
+import Movie from './models/Movie.js'; // Import the Movie model
+
 const app = express();
 
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
     res.send('api is working')
 })
 app.post('/login', loginController)

@@ -11,7 +11,9 @@ export const verifyToken = async (req, res, next) => {
     try {
         const decoded = jwt.verify(token, "8ff954ec9147ae4a6a84a6f591f4cb52f7b4aa46459cbb9c944b24b0e1f13d01");
 
-        const user = await User.findByPk(decoded.userId);
+        const user = await User.findByPk(decoded.userId, {
+            raw: true
+        });
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
