@@ -64,7 +64,7 @@ const getAllMovies = async (req, res) => {
     try {
         const { page = 1 } = req?.query;
         const validatedPage = await getAllMoviesSchema.validate({ page });
-        const limit = 20;
+        const limit = 10;
         let offset = 0;
         offset = limit * (validatedPage.page - 1);
         const count = await Movie.count({
